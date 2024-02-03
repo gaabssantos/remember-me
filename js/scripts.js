@@ -17,9 +17,11 @@ const showOrHiddenMenuCreateTask = () => {
 };
 
 const createTask = () => {
+  const taskName = inputNameTask.value;
+  if (!taskName) return;
+
   showOrHiddenMenuCreateTask();
   containerNoTasks.classList.toggle("hidden");
-  const taskName = inputNameTask.value;
   const category =
     categoryTask.value === "work"
       ? "Trabalho"
@@ -28,13 +30,14 @@ const createTask = () => {
       : categoryTask.value === "family"
       ? "Família"
       : "Outro";
+
   const priority =
     priorityTask.value === "high"
       ? "Alta"
       : priorityTask.value === "medium"
       ? "Média"
       : "Baixa";
-  console.log(priority);
+
   containerTasks.innerHTML += `
   <div class="task-added">
   <table>
@@ -61,8 +64,16 @@ const createTask = () => {
       </td>
       <td class="task-name">${taskName}</td>
       <td class="create-at">...</td>
-      <td>${category}</td>
-      <td>${priority}</td>
+      <td class="task-category">
+        <div class="category-name ${categoryTask.value}">
+          ${category}
+        </div>
+      </td>
+      <td class="task-priority">
+        <div class="priority-name ${priorityTask.value}">
+          ${priority}
+       </div>
+      </td>
       <td class="actions">
         <button class="btn-actions" id="btn-delete">
           <i class="fa-solid fa-trash"></i>

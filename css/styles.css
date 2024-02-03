@@ -104,6 +104,48 @@ select {
   width: 15%;
 }
 
+.category-name, .priority-name {
+  text-align: center;
+  padding: 5px;
+  border-radius: 50px;
+  font-weight: bold;
+}
+
+.work {
+  background-color: #0a0a0a;
+  color: #696969;
+}
+
+.study {
+  background-color: #7a70ff;
+  color: #0b00a3;
+}
+
+.family {
+  background-color: #a1f7a1;
+  color: #068806;
+}
+
+.others {
+  background-color: #9e9e9e;
+  color: #555555;
+}
+
+.high {
+  background-color: #f73c3c;
+  color: #a30000;
+}
+
+.medium {
+  background-color: #fdff71;
+  color: #a6a802;
+}
+
+.low {
+  background-color: #83f57f;
+  color: #047200;
+}
+
 .actions {
   text-align: center;
 }
@@ -136,6 +178,14 @@ select {
 
 .circle-no-start {
   background-color: #737a73;
+}
+
+.in-progress {
+  background-color: #eeff00;
+}
+
+.circle-in-progress {
+  background-color: #9ca704;
 }
 
 .btn-actions {

@@ -29,13 +29,13 @@
             <option value="work">Trabalho</option>
             <option value="study">Estudos</option>
             <option value="family">Familia</option>
-            <option value="other">Outro</option>
+            <option value="others">Outro</option>
           </select>
         </label>
         <label>
           Prioridade
           <select name="priority" id="priority">
-            <option value="hight">Alta</option>
+            <option value="high">Alta</option>
             <option value="medium">Média</option>
             <option value="low">Baixa</option>
           </select>
@@ -55,7 +55,7 @@
             <span id="btn-create"> criar uma </span>?
           </p>
         </div>
-          <div class="task-added">
+        <!-- <div class="task-added">
             <table>
               <tr>
                 <th class="status">
@@ -66,30 +66,38 @@
                   <i class="fa-solid fa-calendar-days"></i> Criado em
                 </th>
                 <th><i class="fa-solid fa-list"></i> Categoria</th>
-                <th><i class="fa-solid fa-exclamation"></i> Prioridade</th>
+                <th class="task-priority"><i class="fa-solid fa-exclamation"></i> Prioridade</th>
                 <th class="actions">
                   <i class="fa-solid fa-triangle-exclamation"></i>Ações
                 </th>
               </tr>
               <tr>
                 <td class="status">
-                  <div class="status-text done">
-                    <div class="status-circle circle-done"></div>
+                  <div class="status-text no-start">
+                    <div class="status-circle circle-no-start"></div>
                     Pronto
                   </div>
                 </td>
                 <td class="task-name">Teste</td>
                 <td class="create-at">Teste</td>
-                <td>Teste</td>
-                <td>Teste</td>
+                <td class="task-category">
+                  <div class="category-name others">
+                    Teste
+                  </div>
+                </td>
+                <td class="task-priority">
+                  <div class="priority-name low">
+                    Teste
+                  </div>
+                </td>
                 <td class="actions">
-                  <button class="btn-actions" id="btn-delete">
+                  <button title="Excluir" class="btn-actions" id="btn-delete">
                     <i class="fa-solid fa-trash"></i>
                   </button>
-                  <button class="btn-actions" id="btn-done">
+                  <button title="Feito" class="btn-actions" id="btn-done">
                     <i class="fa-solid fa-check"></i>
                   </button>
-                  <button class="btn-actions" id="btn-progress">
+                  <button title="Em progresso" class="btn-actions" id="btn-progress">
                     <i class="fa-solid fa-spinner"></i>
                   </button>
                 </td>
@@ -103,7 +111,7 @@
             <div class="create-task">
               <button>Criar tarefa</button>
             </div>
-          </div>
+        </div> -->
       </div>
     </div>
   </body>
