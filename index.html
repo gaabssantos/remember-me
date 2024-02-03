@@ -4,6 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <title>Remember Me</title>
   </head>
   <body>
@@ -12,27 +19,61 @@
         <h1>Remember Me</h1>
       </div>
       <div class="tasks-container">
-        <table>
-          <tr>
-            <th>Status</th>
-            <th>Nome</th>
-            <th>Criado em</th>
-            <th>Categoria</th>
-            <th>Prioridade</th>
-            <th>Ações</th>
-          </tr>
-          <tr>
-            <td>Pronto</td>
-            <td>Teste</td>
-            <td>Teste</td>
-            <td>Teste</td>
-            <td>Teste</td>
-            <td><button>Deletar</button></td>
-          </tr>
-          <tr>
-            <td>Total: <span id="total-tasks">1</span></td>
-          </tr>
-        </table>
+        <div class="no-tasks">
+          <p>
+            Parece que você não tem nenhuma tarefa adicionada, que tal
+            <span id="btn-create"> criar uma </span>?
+          </p>
+        </div>
+        <!-- <div class="task-added">
+          <table>
+            <tr>
+              <th class="status">
+                <i class="fa-regular fa-circle-check"></i>Status
+              </th>
+              <th class="task-name"><i class="fa-solid fa-font"></i> Nome</th>
+              <th class="create-at">
+                <i class="fa-solid fa-calendar-days"></i> Criado em
+              </th>
+              <th><i class="fa-solid fa-list"></i> Categoria</th>
+              <th><i class="fa-solid fa-exclamation"></i> Prioridade</th>
+              <th class="actions">
+                <i class="fa-solid fa-triangle-exclamation"></i>Ações
+              </th>
+            </tr>
+            <tr>
+              <td class="status">
+                <div class="status-text done">
+                  <div class="status-circle circle-done"></div>
+                  Pronto
+                </div>
+              </td>
+              <td class="task-name">Teste</td>
+              <td class="create-at">Teste</td>
+              <td>Teste</td>
+              <td>Teste</td>
+              <td class="actions">
+                <button class="btn-actions" id="btn-delete">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+                <button class="btn-actions" id="btn-done">
+                  <i class="fa-solid fa-check"></i>
+                </button>
+                <button class="btn-actions" id="btn-progress">
+                  <i class="fa-solid fa-spinner"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td class="total" colspan="6">
+                Total: <span id="total-tasks">1</span>
+              </td>
+            </tr>
+          </table>
+          <div class="create-task">
+            <button>Criar tarefa</button>
+          </div>
+        </div> -->
       </div>
     </div>
   </body>
