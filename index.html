@@ -15,10 +15,38 @@
     <title>Remember Me</title>
   </head>
   <body>
+    <div class="menu-create-task hidden">
+      <div class="create-informations">
+        <h1>Criar uma tarefa</h1>
+        <label>
+          Nome da tarefa
+          <input name="task-name" type="text" />
+        </label>
+        <label>
+          Categoria
+          <select name="category">
+            <option value="work">Trabalho</option>
+            <option value="study">Estudos</option>
+            <option value="family">Familia</option>
+            <option value="other">Outro</option>
+          </select>
+        </label>
+        <label>
+          Prioridade
+          <select name="priority">
+            <option value="hight">Alta</option>
+            <option value="medium">Média</option>
+            <option value="low">Baixa</option>
+          </select>
+        </label>
+        <button>Criar a tarefa</button>
+      </div>
+    </div>
     <div class="container">
       <div class="header">
         <h1>Remember Me</h1>
       </div>
+
       <div class="tasks-container">
         <div class="no-tasks">
           <p>
