@@ -21,11 +21,11 @@
         <h1>Criar uma tarefa</h1>
         <label>
           Nome da tarefa
-          <input name="task-name" type="text" />
+          <input name="task-name" type="text" id="name-task" />
         </label>
         <label>
           Categoria
-          <select name="category">
+          <select name="category" id="category">
             <option value="work">Trabalho</option>
             <option value="study">Estudos</option>
             <option value="family">Familia</option>
@@ -34,13 +34,13 @@
         </label>
         <label>
           Prioridade
-          <select name="priority">
+          <select name="priority" id="priority">
             <option value="hight">Alta</option>
             <option value="medium">Média</option>
             <option value="low">Baixa</option>
           </select>
         </label>
-        <button>Criar a tarefa</button>
+        <button id="btn-create-task">Criar a tarefa</button>
       </div>
     </div>
     <div class="container">
@@ -55,55 +55,55 @@
             <span id="btn-create"> criar uma </span>?
           </p>
         </div>
-        <!-- <div class="task-added">
-          <table>
-            <tr>
-              <th class="status">
-                <i class="fa-regular fa-circle-check"></i>Status
-              </th>
-              <th class="task-name"><i class="fa-solid fa-font"></i> Nome</th>
-              <th class="create-at">
-                <i class="fa-solid fa-calendar-days"></i> Criado em
-              </th>
-              <th><i class="fa-solid fa-list"></i> Categoria</th>
-              <th><i class="fa-solid fa-exclamation"></i> Prioridade</th>
-              <th class="actions">
-                <i class="fa-solid fa-triangle-exclamation"></i>Ações
-              </th>
-            </tr>
-            <tr>
-              <td class="status">
-                <div class="status-text done">
-                  <div class="status-circle circle-done"></div>
-                  Pronto
-                </div>
-              </td>
-              <td class="task-name">Teste</td>
-              <td class="create-at">Teste</td>
-              <td>Teste</td>
-              <td>Teste</td>
-              <td class="actions">
-                <button class="btn-actions" id="btn-delete">
-                  <i class="fa-solid fa-trash"></i>
-                </button>
-                <button class="btn-actions" id="btn-done">
-                  <i class="fa-solid fa-check"></i>
-                </button>
-                <button class="btn-actions" id="btn-progress">
-                  <i class="fa-solid fa-spinner"></i>
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td class="total" colspan="6">
-                Total: <span id="total-tasks">1</span>
-              </td>
-            </tr>
-          </table>
-          <div class="create-task">
-            <button>Criar tarefa</button>
+          <div class="task-added">
+            <table>
+              <tr>
+                <th class="status">
+                  <i class="fa-regular fa-circle-check"></i>Status
+                </th>
+                <th class="task-name"><i class="fa-solid fa-font"></i> Nome</th>
+                <th class="create-at">
+                  <i class="fa-solid fa-calendar-days"></i> Criado em
+                </th>
+                <th><i class="fa-solid fa-list"></i> Categoria</th>
+                <th><i class="fa-solid fa-exclamation"></i> Prioridade</th>
+                <th class="actions">
+                  <i class="fa-solid fa-triangle-exclamation"></i>Ações
+                </th>
+              </tr>
+              <tr>
+                <td class="status">
+                  <div class="status-text done">
+                    <div class="status-circle circle-done"></div>
+                    Pronto
+                  </div>
+                </td>
+                <td class="task-name">Teste</td>
+                <td class="create-at">Teste</td>
+                <td>Teste</td>
+                <td>Teste</td>
+                <td class="actions">
+                  <button class="btn-actions" id="btn-delete">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                  <button class="btn-actions" id="btn-done">
+                    <i class="fa-solid fa-check"></i>
+                  </button>
+                  <button class="btn-actions" id="btn-progress">
+                    <i class="fa-solid fa-spinner"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td class="total" colspan="6">
+                  Total: <span id="total-tasks">1</span>
+                </td>
+              </tr>
+            </table>
+            <div class="create-task">
+              <button>Criar tarefa</button>
+            </div>
           </div>
-        </div> -->
       </div>
     </div>
   </body>

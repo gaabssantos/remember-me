@@ -23,21 +23,30 @@ h1 {
 table,
 th,
 td {
-  border: 1px solid #dddd;
-  border-left: none;
   border-collapse: collapse;
+  border: 1px solid #ddd;
+  border-right: none;
+}
+
+table:first-child,
+th:first-child,
+td:first-child {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  border-left: none;
+}
+
+table:last-child,
+th:last-child,
+td:last-child {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 }
 
 th,
 td {
   padding: 10px;
   text-align: left;
-}
-
-table:last-child,
-th:last-child,
-td:last-child {
-  border-right: none;
 }
 
 th {
@@ -70,7 +79,8 @@ label {
   display: block;
 }
 
-input, select {
+input,
+select {
   display: block;
   margin: 10px auto;
   width: 50%;
@@ -83,7 +93,7 @@ input, select {
 }
 
 .task-name {
-  width: 35%;
+  width: 30%;
 }
 
 .create-at {
@@ -91,7 +101,7 @@ input, select {
 }
 
 .status {
-  width: 10%;
+  width: 15%;
 }
 
 .actions {
@@ -118,6 +128,14 @@ input, select {
 
 .circle-done {
   background-color: #037907;
+}
+
+.no-start {
+  background-color: #bcbebc;
+}
+
+.circle-no-start {
+  background-color: #737a73;
 }
 
 .btn-actions {
