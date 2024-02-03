@@ -180,6 +180,16 @@ input, select {
   margin: 20px 0;
 }
 
+.close-menu {
+  text-align: right;
+}
+
+.close-menu i {
+  font-size: 30px;
+  color: rgb(255, 112, 112);
+  cursor: pointer;
+}
+
 #btn-create {
   color: #3333bd;
   cursor: pointer;
