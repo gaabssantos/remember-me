@@ -1,27 +1,35 @@
 // Elements
 const btnCreateFirstTask = document.querySelector("#btn-create");
 const btnCloseMenu = document.querySelector(".close-menu i");
-const btnCreateTask = document.querySelector("#btn-create-task");
+const btnCreateTask = document.querySelector(".btn-create-first-task");
+const btnCreateOtherTasks = document.querySelector(".create-task");
 
-const menuCreateTask = document.querySelector(".menu-create-task");
+const menuCreateFirstTask = document.querySelector(".first-task");
+const menuCreateOtherTasks = document.querySelector(".other-tasks");
 const inputNameTask = document.querySelector("#name-task");
 const categoryTask = document.querySelector("#category");
 const priorityTask = document.querySelector("#priority");
+const tableTask = document.querySelector(".task-table");
+const taskAdded = document.querySelector(".task-added");
 
 const containerNoTasks = document.querySelector(".no-tasks");
 const containerTasks = document.querySelector(".tasks-container");
 
 // Functions
-const showOrHiddenMenuCreateTask = () => {
-  menuCreateTask.classList.toggle("hidden");
+const showOrHiddenMenuCreateTask = (first) => {
+  if (first) {
+    menuCreateFirstTask.classList.toggle("hidden");
+  } else {
+    menuCreateOtherTasks.classList.toggle("hidden");
+  }
 };
 
 const createTask = () => {
   const taskName = inputNameTask.value;
   if (!taskName) return;
 
-  showOrHiddenMenuCreateTask();
-  containerNoTasks.classList.toggle("hidden");
+  showOrHiddenMenuCreateTask(true);
+
   const category =
     categoryTask.value === "work"
       ? "Trabalho"
@@ -38,9 +46,9 @@ const createTask = () => {
       ? "Média"
       : "Baixa";
 
-  containerTasks.innerHTML += `
-  <div class="task-added">
-  <table>
+    containerNoTasks.classList.toggle("hidden");
+    taskAdded.classList.toggle("hidden");
+    tableTask.innerHTML += `
     <tr>
       <th class="status">
         <i class="fa-regular fa-circle-check"></i>Status
@@ -90,15 +98,17 @@ const createTask = () => {
       <td class="total" colspan="6">
         Total: <span id="total-tasks">1</span>
       </td>
-    </tr>
-  </table>
-  <div class="create-task">
-    <button>Criar tarefa</button>
-  </div>
-</div>`;
+    </tr>`;
 };
 
 // Events
-btnCreateFirstTask.addEventListener("click", showOrHiddenMenuCreateTask);
+btnCreateFirstTask.addEventListener("click", () =>
+  showOrHiddenMenuCreateTask(true)
+);
+
+btnCreateOtherTasks.addEventListener("click", () => {
+  showOrHiddenMenuCreateTask(false);
+});
+
 btnCloseMenu.addEventListener("click", showOrHiddenMenuCreateTask);
-btnCreateTask.addEventListener("click", createTask);
+btnCreateTask.addEventListener("click", () => createTask(true));
