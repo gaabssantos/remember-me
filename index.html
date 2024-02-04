@@ -17,15 +17,15 @@
   <body>
     <div class="first-task menu-create-task hidden">
       <div class="create-informations">
-        <div class="close-menu"><i class="fa-solid fa-xmark"></i></div>
+        <div class="close-menu-first"><i class="fa-solid fa-xmark"></i></div>
         <h1>Criar uma tarefa</h1>
         <label>
           Nome da tarefa
-          <input name="task-name" type="text" class="task-name" />
+          <input name="task-name" type="text" id="task-name-first" />
         </label>
         <label>
           Categoria
-          <select name="category">
+          <select name="category" id="category-first">
             <option value="work">Trabalho</option>
             <option value="study">Estudos</option>
             <option value="family">Familia</option>
@@ -34,7 +34,7 @@
         </label>
         <label>
           Prioridade
-          <select name="priority">
+          <select name="priority" id="priority-first">
             <option value="high">Alta</option>
             <option value="medium">Média</option>
             <option value="low">Baixa</option>
@@ -45,15 +45,15 @@
     </div>
     <div class="other-tasks menu-create-task hidden">
       <div class="create-informations">
-        <div class="close-menu"><i class="fa-solid fa-xmark"></i></div>
+        <div class="close-menu-other"><i class="fa-solid fa-xmark"></i></div>
         <h1>Criar uma tarefa</h1>
         <label>
           Nome da tarefa
-          <input name="task-name" type="text" class="name-task" />
+          <input name="task-name" type="text" class="task-name-other" />
         </label>
         <label>
           Categoria
-          <select name="category" id="category">
+          <select name="category" class="category-other">
             <option value="work">Trabalho</option>
             <option value="study">Estudos</option>
             <option value="family">Familia</option>
@@ -62,7 +62,7 @@
         </label>
         <label>
           Prioridade
-          <select name="priority" id="priority">
+          <select name="priority" class="priority-other">
             <option value="high">Alta</option>
             <option value="medium">Média</option>
             <option value="low">Baixa</option>
@@ -84,8 +84,8 @@
           </p>
         </div>
         <div class="task-added hidden">
-            <table class="task-table">
-              <!-- <tr>
+          <table class="task-table">
+            <!-- <tr>
                 <th class="status">
                   <i class="fa-regular fa-circle-check"></i>Status
                 </th>
@@ -135,10 +135,10 @@
                   Total: <span id="total-tasks">1</span>
                 </td>
               </tr> -->
-            </table>
-            <div class="create-task">
-              <button>Criar tarefa</button>
-            </div>
+          </table>
+          <div class="create-task">
+            <button class="btn-create-task">Criar tarefa</button>
+          </div>
         </div>
       </div>
     </div>

@@ -1,23 +1,78 @@
 const btnShowMenuFirstTask = document.querySelector("#btn-create");
+const btnShowMenuOtherTasks = document.querySelector(".btn-create-task");
+
 const btnCreateFirstTask = document.querySelector(".btn-create-first-task");
+const btnCreateOtherTasks = document.querySelector(".btn-create-other-tasks");
+
+const btnCloseFirst = document.querySelector(".close-menu-first");
+const btnCloseOther = document.querySelector(".close-menu-other");
 
 const firstTaskMenu = document.querySelector(".first-task");
+const createTaskMenu = document.querySelector(".other-tasks");
 
 const noTasksContainer = document.querySelector(".no-tasks");
 
 const taskAdded = document.querySelector(".task-added");
 const taskTable = document.querySelector(".task-table");
 
-const input
+const inputTaskName = document.querySelector("#task-name-first");
+const categoryTask = document.querySelector("#category-first");
+const priorityTask = document.querySelector("#priority-first");
+
+const inputTaskNameOther = document.querySelector(".task-name-other");
+const categoryTaskOther = document.querySelector(".category-other");
+const priorityTaskOther = document.querySelector(".priority-other");
+
+const generateId = () => {
+  return Math.random() * 5000;
+}
 
 const showOrHiddenCreateTask = (first) => {
+  inputTaskName.value = "";
+  inputTaskNameOther.value = "";
+  categoryTask.value = "work";
+  priorityTask.value = "high";
+  categoryTaskOther.value = "work";
+  priorityTaskOther.value = "high";
   if (first) {
     firstTaskMenu.classList.toggle("hidden");
+    inputTaskName.focus();
+  } else {
+    createTaskMenu.classList.toggle("hidden");
+    inputTaskNameOther.focus();
   }
 };
 
 const createTask = (first) => {
+
+  const idTask = generateId();
+
   if (first) {
+    const taskNameValue = inputTaskName.value;
+    const dateToday = new Date();
+    const day = dateToday.getDate();
+    const month = dateToday.getMonth() + 1;
+    const year = dateToday.getFullYear();
+    const dateNumber = `${day < 10 ? "0" + day : day}/${
+      month < 10 ? "0" + month : month
+    }/${year}`;
+
+    const category =
+      categoryTask.value === "work"
+        ? "Trabalho"
+        : categoryTask.value === "study"
+        ? "Estudos"
+        : categoryTask.value === "family"
+        ? "Família"
+        : "Outro";
+
+    const priority =
+      priorityTask.value === "high"
+        ? "Alta"
+        : priorityTask.value === "medium"
+        ? "Média"
+        : "Baixa";
+
     firstTaskMenu.classList.toggle("hidden");
     noTasksContainer.classList.toggle("hidden");
     taskAdded.classList.toggle("hidden");
@@ -40,43 +95,115 @@ const createTask = (first) => {
     <td class="status">
       <div class="status-text no-start">
         <div class="status-circle circle-no-start"></div>
-        Pronto
+        Não começou
       </div>
     </td>
-    <td class="task-name">${}</td>
-    <td class="create-at">Teste</td>
+    <td class="task-name">${taskNameValue}</td>
+    <td class="create-at">${dateNumber}</td>
     <td class="task-category">
-      <div class="category-name others">
-        Teste
+      <div class="category-name ${categoryTask.value}">
+        ${category}
       </div>
     </td>
     <td class="task-priority">
-      <div class="priority-name low">
-        Teste
+      <div class="priority-name ${priorityTask.value}">
+        ${priority}
       </div>
     </td>
     <td class="actions">
-      <button title="Excluir" class="btn-actions" id="btn-delete">
+      <button title="Excluir" class="btn-actions btn-delete" id="btn-delete-${idTask}">
         <i class="fa-solid fa-trash"></i>
       </button>
-      <button title="Feito" class="btn-actions" id="btn-done">
+      <button title="Feito" class="btn-actions btn-done" id="btn-done-${idTask}">
         <i class="fa-solid fa-check"></i>
       </button>
-      <button title="Em progresso" class="btn-actions" id="btn-progress">
+      <button title="Em progresso" class="btn-actions btn-progress" id="btn-progress-${idTask}">
         <i class="fa-solid fa-spinner"></i>
       </button>
     </td>
-  </tr>
+  </tr>`;
+    inputTaskName.value = "";
+    categoryTask.value = "work";
+    priorityTask.value = "high";
+  } else {
+    const taskNameValue = inputTaskNameOther.value;
+    const dateToday = new Date();
+    const day = dateToday.getDate();
+    const month = dateToday.getMonth() + 1;
+    const year = dateToday.getFullYear();
+    const dateNumber = `${day < 10 ? "0" + day : day}/${
+      month < 10 ? "0" + month : month
+    }/${year}`;
+
+    const category =
+      categoryTaskOther.value === "work"
+        ? "Trabalho"
+        : categoryTaskOther.value === "study"
+        ? "Estudos"
+        : categoryTaskOther.value === "family"
+        ? "Família"
+        : "Outro";
+
+    const priority =
+      priorityTaskOther.value === "high"
+        ? "Alta"
+        : priorityTaskOther.value === "medium"
+        ? "Média"
+        : "Baixa";
+
+    createTaskMenu.classList.toggle("hidden");
+    taskTable.innerHTML += `
   <tr>
-    <td class="total" colspan="6">
-      Total: <span id="total-tasks">1</span>
+    <td class="status">
+      <div class="status-text no-start">
+        <div class="status-circle circle-no-start"></div>
+        Não começou
+      </div>
     </td>
-  </tr>`
+    <td class="task-name">${taskNameValue}</td>
+    <td class="create-at">${dateNumber}</td>
+    <td class="task-category">
+      <div class="category-name ${categoryTaskOther.value}">
+        ${category}
+      </div>
+    </td>
+    <td class="task-priority">
+      <div class="priority-name ${priorityTaskOther.value}">
+        ${priority}
+      </div>
+    </td>
+    <td class="actions">
+      <button title="Excluir" class="btn-actions btn-delete" id="btn-progress-${idTask}">
+        <i class="fa-solid fa-trash"></i>
+      </button>
+      <button title="Feito" class="btn-actions btn-done" id="btn-done-${idTask}">
+        <i class="fa-solid fa-check"></i>
+      </button>
+      <button title="Em progresso" class="btn-actions btn-progress" id="btn-progress-${idTask}">
+        <i class="fa-solid fa-spinner"></i>
+      </button>
+    </td>
+  </tr>`;
+    inputTaskNameOther.value = "";
+    categoryTaskOther.value = "work";
+    priorityTaskOther.value = "high";
   }
 };
+
+const changeTaskStatus = () => {
+  
+}
 
 btnShowMenuFirstTask.addEventListener("click", () =>
   showOrHiddenCreateTask(true)
 );
 
+btnShowMenuOtherTasks.addEventListener("click", () =>
+  showOrHiddenCreateTask(false)
+);
+
 btnCreateFirstTask.addEventListener("click", () => createTask(true));
+btnCreateOtherTasks.addEventListener("click", () => createTask(false));
+
+btnCloseFirst.addEventListener("click", () => showOrHiddenCreateTask(true));
+btnCloseOther.addEventListener("click", () => showOrHiddenCreateTask(false));

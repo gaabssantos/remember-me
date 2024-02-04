@@ -26,6 +26,7 @@ td {
   border-collapse: collapse;
   border: 1px solid #ddd;
   border-right: none;
+  z-index: 2;
 }
 
 table:first-child,
@@ -231,6 +232,7 @@ select {
   background-color: rgba(0, 0, 0, 0.7);
   width: 100vw;
   height: 100vh;
+  z-index: 1;
 }
 
 .create-informations {
@@ -248,11 +250,11 @@ select {
   margin: 20px 0;
 }
 
-.close-menu {
+.close-menu-first, .close-menu-other {
   text-align: right;
 }
 
-.close-menu i {
+.close-menu-first i, .close-menu-other i {
   font-size: 30px;
   color: rgb(255, 112, 112);
   cursor: pointer;
@@ -267,17 +269,17 @@ select {
   text-decoration: underline;
 }
 
-#btn-done {
+.btn-done {
   background-color: #6eff72;
   border: 3px solid #00a305;
 }
 
-#btn-delete {
+.btn-delete {
   background-color: #ff787a;
   border: 3px solid #ff3639;
 }
 
-#btn-progress {
+.btn-progress {
   background-color: #f6ff78;
   border: 3px solid #b3c000;
 }
