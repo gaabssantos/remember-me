@@ -1,114 +1,209 @@
-// Elements
-const btnCreateFirstTask = document.querySelector("#btn-create");
-const btnCloseMenu = document.querySelector(".close-menu i");
-const btnCreateTask = document.querySelector(".btn-create-first-task");
-const btnCreateOtherTasks = document.querySelector(".create-task");
+const btnShowMenuFirstTask = document.querySelector("#btn-create");
+const btnShowMenuOtherTasks = document.querySelector(".btn-create-task");
 
-const menuCreateFirstTask = document.querySelector(".first-task");
-const menuCreateOtherTasks = document.querySelector(".other-tasks");
-const inputNameTask = document.querySelector("#name-task");
-const categoryTask = document.querySelector("#category");
-const priorityTask = document.querySelector("#priority");
-const tableTask = document.querySelector(".task-table");
+const btnCreateFirstTask = document.querySelector(".btn-create-first-task");
+const btnCreateOtherTasks = document.querySelector(".btn-create-other-tasks");
+
+const btnCloseFirst = document.querySelector(".close-menu-first");
+const btnCloseOther = document.querySelector(".close-menu-other");
+
+const firstTaskMenu = document.querySelector(".first-task");
+const createTaskMenu = document.querySelector(".other-tasks");
+
+const noTasksContainer = document.querySelector(".no-tasks");
+
 const taskAdded = document.querySelector(".task-added");
+const taskTable = document.querySelector(".task-table");
 
-const containerNoTasks = document.querySelector(".no-tasks");
-const containerTasks = document.querySelector(".tasks-container");
+const inputTaskName = document.querySelector("#task-name-first");
+const categoryTask = document.querySelector("#category-first");
+const priorityTask = document.querySelector("#priority-first");
 
-// Functions
-const showOrHiddenMenuCreateTask = (first) => {
+const inputTaskNameOther = document.querySelector(".task-name-other");
+const categoryTaskOther = document.querySelector(".category-other");
+const priorityTaskOther = document.querySelector(".priority-other");
+
+const generateId = () => {
+  return Math.random() * 5000;
+}
+
+const showOrHiddenCreateTask = (first) => {
+  inputTaskName.value = "";
+  inputTaskNameOther.value = "";
+  categoryTask.value = "work";
+  priorityTask.value = "high";
+  categoryTaskOther.value = "work";
+  priorityTaskOther.value = "high";
   if (first) {
-    menuCreateFirstTask.classList.toggle("hidden");
+    firstTaskMenu.classList.toggle("hidden");
+    inputTaskName.focus();
   } else {
-    menuCreateOtherTasks.classList.toggle("hidden");
+    createTaskMenu.classList.toggle("hidden");
+    inputTaskNameOther.focus();
   }
 };
 
-const createTask = () => {
-  const taskName = inputNameTask.value;
-  if (!taskName) return;
+const createTask = (first) => {
 
-  showOrHiddenMenuCreateTask(true);
+  const idTask = generateId();
 
-  const category =
-    categoryTask.value === "work"
-      ? "Trabalho"
-      : categoryTask.value === "study"
-      ? "Estudos"
-      : categoryTask.value === "family"
-      ? "Família"
-      : "Outro";
+  if (first) {
+    const taskNameValue = inputTaskName.value;
+    const dateToday = new Date();
+    const day = dateToday.getDate();
+    const month = dateToday.getMonth() + 1;
+    const year = dateToday.getFullYear();
+    const dateNumber = `${day < 10 ? "0" + day : day}/${
+      month < 10 ? "0" + month : month
+    }/${year}`;
 
-  const priority =
-    priorityTask.value === "high"
-      ? "Alta"
-      : priorityTask.value === "medium"
-      ? "Média"
-      : "Baixa";
+    const category =
+      categoryTask.value === "work"
+        ? "Trabalho"
+        : categoryTask.value === "study"
+        ? "Estudos"
+        : categoryTask.value === "family"
+        ? "Família"
+        : "Outro";
 
-    containerNoTasks.classList.toggle("hidden");
+    const priority =
+      priorityTask.value === "high"
+        ? "Alta"
+        : priorityTask.value === "medium"
+        ? "Média"
+        : "Baixa";
+
+    firstTaskMenu.classList.toggle("hidden");
+    noTasksContainer.classList.toggle("hidden");
     taskAdded.classList.toggle("hidden");
-    tableTask.innerHTML += `
+    taskTable.innerHTML += `
     <tr>
-      <th class="status">
-        <i class="fa-regular fa-circle-check"></i>Status
-      </th>
-      <th class="task-name"><i class="fa-solid fa-font"></i> Nome</th>
-      <th class="create-at">
-        <i class="fa-solid fa-calendar-days"></i> Criado em
-      </th>
-      <th><i class="fa-solid fa-list"></i> Categoria</th>
-      <th><i class="fa-solid fa-exclamation"></i> Prioridade</th>
-      <th class="actions">
-        <i class="fa-solid fa-triangle-exclamation"></i>Ações
-      </th>
-    </tr>
-    <tr>
-      <td class="status">
-        <div class="status-text no-start">
-          <div class="status-circle circle-no-start"></div>
-          Não começou
-        </div>
-      </td>
-      <td class="task-name">${taskName}</td>
-      <td class="create-at">...</td>
-      <td class="task-category">
-        <div class="category-name ${categoryTask.value}">
-          ${category}
-        </div>
-      </td>
-      <td class="task-priority">
-        <div class="priority-name ${priorityTask.value}">
-          ${priority}
-       </div>
-      </td>
-      <td class="actions">
-        <button class="btn-actions" id="btn-delete">
-          <i class="fa-solid fa-trash"></i>
-        </button>
-        <button class="btn-actions" id="btn-done">
-          <i class="fa-solid fa-check"></i>
-        </button>
-        <button class="btn-actions" id="btn-progress">
-          <i class="fa-solid fa-spinner"></i>
-        </button>
-      </td>
-    </tr>
-    <tr>
-      <td class="total" colspan="6">
-        Total: <span id="total-tasks">1</span>
-      </td>
-    </tr>`;
+    <th class="status">
+      <i class="fa-regular fa-circle-check"></i>Status
+    </th>
+    <th class="task-name"><i class="fa-solid fa-font"></i> Nome</th>
+    <th class="create-at">
+      <i class="fa-solid fa-calendar-days"></i> Criado em
+    </th>
+    <th><i class="fa-solid fa-list"></i> Categoria</th>
+    <th class="task-priority"><i class="fa-solid fa-exclamation"></i> Prioridade</th>
+    <th class="actions">
+      <i class="fa-solid fa-triangle-exclamation"></i>Ações
+    </th>
+  </tr>
+  <tr>
+    <td class="status">
+      <div class="status-text no-start">
+        <div class="status-circle circle-no-start"></div>
+        Não começou
+      </div>
+    </td>
+    <td class="task-name">${taskNameValue}</td>
+    <td class="create-at">${dateNumber}</td>
+    <td class="task-category">
+      <div class="category-name ${categoryTask.value}">
+        ${category}
+      </div>
+    </td>
+    <td class="task-priority">
+      <div class="priority-name ${priorityTask.value}">
+        ${priority}
+      </div>
+    </td>
+    <td class="actions">
+      <button title="Excluir" class="btn-actions btn-delete" id="btn-delete-${idTask}">
+        <i class="fa-solid fa-trash"></i>
+      </button>
+      <button title="Feito" class="btn-actions btn-done" id="btn-done-${idTask}">
+        <i class="fa-solid fa-check"></i>
+      </button>
+      <button title="Em progresso" class="btn-actions btn-progress" id="btn-progress-${idTask}">
+        <i class="fa-solid fa-spinner"></i>
+      </button>
+    </td>
+  </tr>`;
+    inputTaskName.value = "";
+    categoryTask.value = "work";
+    priorityTask.value = "high";
+  } else {
+    const taskNameValue = inputTaskNameOther.value;
+    const dateToday = new Date();
+    const day = dateToday.getDate();
+    const month = dateToday.getMonth() + 1;
+    const year = dateToday.getFullYear();
+    const dateNumber = `${day < 10 ? "0" + day : day}/${
+      month < 10 ? "0" + month : month
+    }/${year}`;
+
+    const category =
+      categoryTaskOther.value === "work"
+        ? "Trabalho"
+        : categoryTaskOther.value === "study"
+        ? "Estudos"
+        : categoryTaskOther.value === "family"
+        ? "Família"
+        : "Outro";
+
+    const priority =
+      priorityTaskOther.value === "high"
+        ? "Alta"
+        : priorityTaskOther.value === "medium"
+        ? "Média"
+        : "Baixa";
+
+    createTaskMenu.classList.toggle("hidden");
+    taskTable.innerHTML += `
+  <tr>
+    <td class="status">
+      <div class="status-text no-start">
+        <div class="status-circle circle-no-start"></div>
+        Não começou
+      </div>
+    </td>
+    <td class="task-name">${taskNameValue}</td>
+    <td class="create-at">${dateNumber}</td>
+    <td class="task-category">
+      <div class="category-name ${categoryTaskOther.value}">
+        ${category}
+      </div>
+    </td>
+    <td class="task-priority">
+      <div class="priority-name ${priorityTaskOther.value}">
+        ${priority}
+      </div>
+    </td>
+    <td class="actions">
+      <button title="Excluir" class="btn-actions btn-delete" id="btn-progress-${idTask}">
+        <i class="fa-solid fa-trash"></i>
+      </button>
+      <button title="Feito" class="btn-actions btn-done" id="btn-done-${idTask}">
+        <i class="fa-solid fa-check"></i>
+      </button>
+      <button title="Em progresso" class="btn-actions btn-progress" id="btn-progress-${idTask}">
+        <i class="fa-solid fa-spinner"></i>
+      </button>
+    </td>
+  </tr>`;
+    inputTaskNameOther.value = "";
+    categoryTaskOther.value = "work";
+    priorityTaskOther.value = "high";
+  }
 };
 
-// Events
-btnCreateFirstTask.addEventListener("click", () =>
-  showOrHiddenMenuCreateTask(true)
+const changeTaskStatus = () => {
+  
+}
+
+btnShowMenuFirstTask.addEventListener("click", () =>
+  showOrHiddenCreateTask(true)
 );
 
-btnCreateOtherTasks.addEventListener("click", () => {
-  showOrHiddenMenuCreateTask(false);
-});
+btnShowMenuOtherTasks.addEventListener("click", () =>
+  showOrHiddenCreateTask(false)
+);
 
-btnCloseMenu.addEventListener("click", showOrHiddenMenuCreateTask);
-btnCreateTask.addEventListener("click", () => createTask(true));
+btnCreateFirstTask.addEventListener("click", () => createTask(true));
+btnCreateOtherTasks.addEventListener("click", () => createTask(false));
+
+btnCloseFirst.addEventListener("click", () => showOrHiddenCreateTask(true));
+btnCloseOther.addEventListener("click", () => showOrHiddenCreateTask(false));
