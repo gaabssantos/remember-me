@@ -195,6 +195,7 @@ select {
 
 .btn-actions i {
   font-size: 18px;
+  pointer-events: none;
 }
 
 .btn-actions {

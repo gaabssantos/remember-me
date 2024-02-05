@@ -24,8 +24,8 @@ const categoryTaskOther = document.querySelector(".category-other");
 const priorityTaskOther = document.querySelector(".priority-other");
 
 const generateId = () => {
-  return Math.random() * 5000;
-}
+  return Math.floor(Math.random() * 5000);
+};
 
 const showOrHiddenCreateTask = (first) => {
   inputTaskName.value = "";
@@ -43,9 +43,28 @@ const showOrHiddenCreateTask = (first) => {
   }
 };
 
-const createTask = (first) => {
+const changeTaskStatus = (status, taskId) => {
+  const task = document.getElementById(`task-${taskId}`);
 
-  const idTask = generateId();
+  const taskStatusText = document.querySelector(`#task-${taskId} .status`);
+
+  if (status === "delete") {
+    task.remove();
+  } else if (status === "done") {
+    taskStatusText.innerHTML = `<div class="status-text done">
+    <div class="status-circle circle-done"></div>
+    Finalizado
+  </div>`;
+  } else {
+    taskStatusText.innerHTML = `<div class="status-text in-progress">
+    <div class="status-circle circle-in-progress"></div>
+    Em progresso
+  </div>`;
+  }
+};
+
+const createTask = (first) => {
+  let idTask = generateId();
 
   if (first) {
     const taskNameValue = inputTaskName.value;
@@ -77,7 +96,7 @@ const createTask = (first) => {
     noTasksContainer.classList.toggle("hidden");
     taskAdded.classList.toggle("hidden");
     taskTable.innerHTML += `
-    <tr>
+    <tr class="task-header">
     <th class="status">
       <i class="fa-regular fa-circle-check"></i>Status
     </th>
@@ -91,7 +110,7 @@ const createTask = (first) => {
       <i class="fa-solid fa-triangle-exclamation"></i>Ações
     </th>
   </tr>
-  <tr>
+  <tr id="task-${idTask}">
     <td class="status">
       <div class="status-text no-start">
         <div class="status-circle circle-no-start"></div>
@@ -101,7 +120,7 @@ const createTask = (first) => {
     <td class="task-name">${taskNameValue}</td>
     <td class="create-at">${dateNumber}</td>
     <td class="task-category">
-      <div class="category-name ${categoryTask.value}">
+      <div class="category-name ${categoryTask.value}" id="category-${idTask}">
         ${category}
       </div>
     </td>
@@ -153,7 +172,7 @@ const createTask = (first) => {
 
     createTaskMenu.classList.toggle("hidden");
     taskTable.innerHTML += `
-  <tr>
+  <tr id="task-${idTask}">
     <td class="status">
       <div class="status-text no-start">
         <div class="status-circle circle-no-start"></div>
@@ -163,7 +182,7 @@ const createTask = (first) => {
     <td class="task-name">${taskNameValue}</td>
     <td class="create-at">${dateNumber}</td>
     <td class="task-category">
-      <div class="category-name ${categoryTaskOther.value}">
+      <div class="category-name ${categoryTaskOther.value}" id="category-${idTask}">
         ${category}
       </div>
     </td>
@@ -173,7 +192,7 @@ const createTask = (first) => {
       </div>
     </td>
     <td class="actions">
-      <button title="Excluir" class="btn-actions btn-delete" id="btn-progress-${idTask}">
+      <button title="Excluir" class="btn-actions btn-delete" id="btn-delete-${idTask}">
         <i class="fa-solid fa-trash"></i>
       </button>
       <button title="Feito" class="btn-actions btn-done" id="btn-done-${idTask}">
@@ -188,11 +207,35 @@ const createTask = (first) => {
     categoryTaskOther.value = "work";
     priorityTaskOther.value = "high";
   }
-};
 
-const changeTaskStatus = () => {
-  
-}
+  const btnDeleteTask = document.querySelectorAll(".btn-delete");
+  const btnDoneTask = document.querySelectorAll(".btn-done");
+  const btnProgressTask = document.querySelectorAll(".btn-progress");
+
+  btnDeleteTask.forEach((btnDelete) => {
+    btnDelete.addEventListener("click", (e) => {
+      const btnId = e.target.id;
+      const id = btnId.split("-")[2];
+      changeTaskStatus("delete", id);
+    });
+  });
+
+  btnDoneTask.forEach((btnDone) => {
+    btnDone.addEventListener("click", (e) => {
+      const btnId = e.target.id;
+      const id = btnId.split("-")[2];
+      changeTaskStatus("done", id);
+    });
+  });
+
+  btnProgressTask.forEach((btnProgress) => {
+    btnProgress.addEventListener("click", (e) => {
+      const btnId = e.target.id;
+      const id = btnId.split("-")[2];
+      changeTaskStatus("progress", id);
+    });
+  });
+};
 
 btnShowMenuFirstTask.addEventListener("click", () =>
   showOrHiddenCreateTask(true)
