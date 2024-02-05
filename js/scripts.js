@@ -70,53 +70,27 @@ const changeTaskStatus = (status, taskId) => {
   }
 };
 
-const createTask = (first) => {
-  let idTask = generateId();
+const getTasksLocalStorage = () => {
+  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  return tasks;
+};
 
-  if (first) {
-    const taskNameValue = inputTaskName.value;
-    const dateToday = new Date();
-    const day = dateToday.getDate();
-    const month = dateToday.getMonth() + 1;
-    const year = dateToday.getFullYear();
-    const dateNumber = `${day < 10 ? "0" + day : day}/${
-      month < 10 ? "0" + month : month
-    }/${year}`;
+const saveTaskLocalStorage = (task) => {
+  const tasks = getTasksLocalStorage();
+  tasks.push(task);
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+};
 
-    const category =
-      categoryTask.value === "work"
-        ? "Trabalho"
-        : categoryTask.value === "study"
-        ? "Estudos"
-        : categoryTask.value === "family"
-        ? "Família"
-        : "Outro";
-
-    const priority =
-      priorityTask.value === "high"
-        ? "Alta"
-        : priorityTask.value === "medium"
-        ? "Média"
-        : "Baixa";
-
-    firstTaskMenu.classList.toggle("hidden");
-    noTasksContainer.classList.toggle("hidden");
-    taskAdded.classList.toggle("hidden");
-    taskTable.innerHTML += `
-    <tr class="task-header">
-    <th class="status">
-      <i class="fa-regular fa-circle-check"></i>Status
-    </th>
-    <th class="task-name"><i class="fa-solid fa-font"></i> Nome</th>
-    <th class="create-at">
-      <i class="fa-solid fa-calendar-days"></i> Criado em
-    </th>
-    <th><i class="fa-solid fa-list"></i> Categoria</th>
-    <th class="task-priority"><i class="fa-solid fa-exclamation"></i> Prioridade</th>
-    <th class="actions">
-      <i class="fa-solid fa-triangle-exclamation"></i>Ações
-    </th>
-  </tr>
+const createElement = (
+  idTask,
+  taskNameValue,
+  dateNumber,
+  categoryTask,
+  category,
+  priorityTask,
+  priority
+) => {
+  taskTable.innerHTML += `
   <tr id="task-${idTask}">
     <td class="status">
       <div class="status-text no-start">
@@ -148,6 +122,174 @@ const createTask = (first) => {
       </button>
     </td>
   </tr>`;
+};
+
+const initTasks = () => {
+  if (getTasksLocalStorage().length > 0) {
+    taskAdded.classList.toggle("hidden");
+    noTasksContainer.classList.toggle("hidden");
+    taskTable.innerHTML += `<tr class="task-header">
+    <th class="status">
+      <i class="fa-regular fa-circle-check"></i>Status
+    </th>
+    <th class="task-name"><i class="fa-solid fa-font"></i> Nome</th>
+    <th class="create-at">
+      <i class="fa-solid fa-calendar-days"></i> Criado em
+    </th>
+    <th><i class="fa-solid fa-list"></i> Categoria</th>
+    <th class="task-priority"><i class="fa-solid fa-exclamation"></i> Prioridade</th>
+    <th class="actions">
+      <i class="fa-solid fa-triangle-exclamation"></i>Ações
+    </th>
+  </tr>`;
+    getTasksLocalStorage().forEach((task) => {
+      taskTable.innerHTML += `
+    <tr id="task-${task.idTask}">
+      <td class="status">
+        <div class="status-text no-start">
+          <div class="status-circle circle-no-start"></div>
+          Não começou
+        </div>
+      </td>
+      <td class="task-name">${task.taskNameValue}</td>
+      <td class="create-at">${task.dateNumber}</td>
+      <td class="task-category">
+        <div class="category-name ${
+          task.categoryTaskValue
+            ? task.categoryTaskValue
+            : task.categoryTaskOtherValue
+        }" id="category-${task.idTask}">
+          ${task.category}
+        </div>
+      </td>
+      <td class="task-priority">
+        <div class="priority-name ${
+          task.priorityTaskValue
+            ? task.priorityTaskValue
+            : task.priorityTaskOtherValue
+        }">
+          ${task.priority}
+        </div>
+      </td>
+      <td class="actions">
+        <button title="Excluir" class="btn-actions btn-delete" id="btn-delete-${
+          task.idTask
+        }">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+        <button title="Feito" class="btn-actions btn-done" id="btn-done-${
+          task.idTask
+        }">
+          <i class="fa-solid fa-check"></i>
+        </button>
+        <button title="Em progresso" class="btn-actions btn-progress" id="btn-progress-${
+          task.idTask
+        }">
+          <i class="fa-solid fa-spinner"></i>
+        </button>
+      </td>
+    </tr>`;
+
+      const btnDeleteTask = document.querySelectorAll(".btn-delete");
+      const btnDoneTask = document.querySelectorAll(".btn-done");
+      const btnProgressTask = document.querySelectorAll(".btn-progress");
+
+      btnDeleteTask.forEach((btnDelete) => {
+        btnDelete.addEventListener("click", (e) => {
+          const btnId = e.target.id;
+          const id = btnId.split("-")[2];
+          changeTaskStatus("delete", id);
+        });
+      });
+
+      btnDoneTask.forEach((btnDone) => {
+        btnDone.addEventListener("click", (e) => {
+          const btnId = e.target.id;
+          const id = btnId.split("-")[2];
+          changeTaskStatus("done", id);
+        });
+      });
+
+      btnProgressTask.forEach((btnProgress) => {
+        btnProgress.addEventListener("click", (e) => {
+          const btnId = e.target.id;
+          const id = btnId.split("-")[2];
+          changeTaskStatus("progress", id);
+        });
+      });
+    });
+  }
+};
+
+const createTask = (first) => {
+  const idTask = generateId();
+
+  if (first) {
+    const taskNameValue = inputTaskName.value;
+    const dateToday = new Date();
+    const day = dateToday.getDate();
+    const month = dateToday.getMonth() + 1;
+    const year = dateToday.getFullYear();
+    const dateNumber = `${day < 10 ? "0" + day : day}/${
+      month < 10 ? "0" + month : month
+    }/${year}`;
+
+    const categoryTaskValue = categoryTask.value;
+    const priorityTaskValue = priorityTask.value;
+
+    const category =
+      categoryTask.value === "work"
+        ? "Trabalho"
+        : categoryTask.value === "study"
+        ? "Estudos"
+        : categoryTask.value === "family"
+        ? "Família"
+        : "Outro";
+
+    const priority =
+      priorityTask.value === "high"
+        ? "Alta"
+        : priorityTask.value === "medium"
+        ? "Média"
+        : "Baixa";
+
+    saveTaskLocalStorage({
+      idTask,
+      taskNameValue,
+      dateNumber,
+      categoryTaskValue,
+      priorityTaskValue,
+      category,
+      priority,
+    });
+
+    firstTaskMenu.classList.toggle("hidden");
+    noTasksContainer.classList.toggle("hidden");
+    taskAdded.classList.toggle("hidden");
+    taskTable.innerHTML += `
+    <tr class="task-header">
+    <th class="status">
+      <i class="fa-regular fa-circle-check"></i>Status
+    </th>
+    <th class="task-name"><i class="fa-solid fa-font"></i> Nome</th>
+    <th class="create-at">
+      <i class="fa-solid fa-calendar-days"></i> Criado em
+    </th>
+    <th><i class="fa-solid fa-list"></i> Categoria</th>
+    <th class="task-priority"><i class="fa-solid fa-exclamation"></i> Prioridade</th>
+    <th class="actions">
+      <i class="fa-solid fa-triangle-exclamation"></i>Ações
+    </th>
+  </tr>`;
+    createElement(
+      idTask,
+      taskNameValue,
+      dateNumber,
+      categoryTask,
+      category,
+      priorityTask,
+      priority
+    );
     inputTaskName.value = "";
     categoryTask.value = "work";
     priorityTask.value = "high";
@@ -160,6 +302,9 @@ const createTask = (first) => {
     const dateNumber = `${day < 10 ? "0" + day : day}/${
       month < 10 ? "0" + month : month
     }/${year}`;
+
+    const categoryTaskOtherValue = categoryTaskOther.value;
+    const priorityTaskOtherValue = priorityTaskOther.value;
 
     const category =
       categoryTaskOther.value === "work"
@@ -177,39 +322,26 @@ const createTask = (first) => {
         ? "Média"
         : "Baixa";
 
+    saveTaskLocalStorage({
+      idTask,
+      taskNameValue,
+      dateNumber,
+      categoryTaskOtherValue,
+      priorityTaskOtherValue,
+      category,
+      priority,
+    });
+
     createTaskMenu.classList.toggle("hidden");
-    taskTable.innerHTML += `
-  <tr id="task-${idTask}">
-    <td class="status">
-      <div class="status-text no-start">
-        <div class="status-circle circle-no-start"></div>
-        Não começou
-      </div>
-    </td>
-    <td class="task-name">${taskNameValue}</td>
-    <td class="create-at">${dateNumber}</td>
-    <td class="task-category">
-      <div class="category-name ${categoryTaskOther.value}" id="category-${idTask}">
-        ${category}
-      </div>
-    </td>
-    <td class="task-priority">
-      <div class="priority-name ${priorityTaskOther.value}">
-        ${priority}
-      </div>
-    </td>
-    <td class="actions">
-      <button title="Excluir" class="btn-actions btn-delete" id="btn-delete-${idTask}">
-        <i class="fa-solid fa-trash"></i>
-      </button>
-      <button title="Feito" class="btn-actions btn-done" id="btn-done-${idTask}">
-        <i class="fa-solid fa-check"></i>
-      </button>
-      <button title="Em progresso" class="btn-actions btn-progress" id="btn-progress-${idTask}">
-        <i class="fa-solid fa-spinner"></i>
-      </button>
-    </td>
-  </tr>`;
+    createElement(
+      idTask,
+      taskNameValue,
+      dateNumber,
+      categoryTaskOther,
+      category,
+      priorityTaskOther,
+      priority
+    );
     inputTaskNameOther.value = "";
     categoryTaskOther.value = "work";
     priorityTaskOther.value = "high";
@@ -257,3 +389,5 @@ btnCreateOtherTasks.addEventListener("click", () => createTask(false));
 
 btnCloseFirst.addEventListener("click", () => showOrHiddenCreateTask(true));
 btnCloseOther.addEventListener("click", () => showOrHiddenCreateTask(false));
+
+initTasks();
