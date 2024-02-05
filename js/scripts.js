@@ -49,7 +49,14 @@ const changeTaskStatus = (status, taskId) => {
   const taskStatusText = document.querySelector(`#task-${taskId} .status`);
 
   if (status === "delete") {
-    task.remove();
+    if (document.querySelectorAll("tr").length > 2) {
+      task.remove();
+    } else {
+      task.remove();
+      taskAdded.classList.toggle("hidden");
+      noTasksContainer.classList.toggle("hidden");
+      document.querySelector(".task-header").remove();
+    }
   } else if (status === "done") {
     taskStatusText.innerHTML = `<div class="status-text done">
     <div class="status-circle circle-done"></div>
