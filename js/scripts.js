@@ -71,12 +71,34 @@ const changeTaskStatus = (status, taskId) => {
     const taskFilter = getTasksLocalStorage().filter(
       (task) => task.idTask == taskId
     )[0];
-    console.log(taskFilter);
+    const taskFilterAll = getTasksLocalStorage().filter(
+      (task) => task.idTask != taskId
+    );
+    taskFilter.statusTask = "done";
+    taskFilter.status = "Finalizado";
+    localStorage.removeItem("tasks");
+    saveTaskLocalStorage(taskFilter);
+    taskFilterAll.forEach((task) => {
+      saveTaskLocalStorage({ ...task });
+    });
   } else {
     taskStatusText.innerHTML = `<div class="status-text in-progress">
     <div class="status-circle circle-in-progress"></div>
     Em progresso
   </div>`;
+    const taskFilter = getTasksLocalStorage().filter(
+      (task) => task.idTask == taskId
+    )[0];
+    const taskFilterAll = getTasksLocalStorage().filter(
+      (task) => task.idTask != taskId
+    );
+    taskFilter.statusTask = "in-progress";
+    taskFilter.status = "Em progresso";
+    localStorage.removeItem("tasks");
+    saveTaskLocalStorage(taskFilter);
+    taskFilterAll.forEach((task) => {
+      saveTaskLocalStorage({ ...task });
+    });
   }
 };
 
@@ -106,7 +128,7 @@ const createElement = (
   <tr id="task-${idTask}">
     <td class="status">
       <div class="status-text ${statusTask}">
-        <div class="status-circle circle-no-start"></div>
+        <div class="status-circle circle-${statusTask}"></div>
         ${status}
       </div>
     </td>
@@ -159,7 +181,7 @@ const initTasks = () => {
     <tr id="task-${task.idTask}">
       <td class="status">
         <div class="status-text ${task.statusTask}">
-          <div class="status-circle circle-no-start"></div>
+          <div class="status-circle circle-${task.statusTask}"></div>
           ${task.status}
         </div>
       </td>
