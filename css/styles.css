@@ -191,18 +191,15 @@ select {
 
 .btn-actions {
   cursor: pointer;
+  padding: 4px;
+  border-radius: 50px;
+  margin: 0 5px;
+  transition: 0.5s;
 }
 
 .btn-actions i {
   font-size: 18px;
   pointer-events: none;
-}
-
-.btn-actions {
-  padding: 4px;
-  border-radius: 50px;
-  margin: 0 5px;
-  transition: 0.5s;
 }
 
 .btn-actions:hover {
@@ -283,4 +280,53 @@ select {
 .btn-progress {
   background-color: #f6ff78;
   border: 3px solid #b3c000;
+}
+
+@media (max-width: 600px) {
+  .container {
+    width: 100vw;
+  }
+
+  .status-text {
+    border-radius: 5px;
+    width: 100%;
+  }
+
+  .btn-actions {
+    margin-top: 10px;
+  }
+
+  .create-at {
+    display: none;
+  }
+}
+
+@media (max-width: 800px) {
+  .container {
+    width: 100vw;
+  }
+
+  .status-text {
+    border-radius: 5px;
+    width: 100%;
+  }
+
+  .btn-actions {
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .container {
+    width: 100vw;
+  }
+
+  .status-text {
+    border-radius: 5px;
+    width: 100%;
+  }
+
+  .btn-actions {
+    margin-top: 10px;
+  }
 }
