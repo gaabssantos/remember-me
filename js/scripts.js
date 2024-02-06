@@ -57,11 +57,21 @@ const changeTaskStatus = (status, taskId) => {
       noTasksContainer.classList.toggle("hidden");
       document.querySelector(".task-header").remove();
     }
+
+    const taskFilter = getTasksLocalStorage().filter(
+      (task) => task.idTask != taskId
+    );
+    localStorage.removeItem("tasks");
+    taskFilter.forEach((task) => saveTaskLocalStorage({ ...task }));
   } else if (status === "done") {
     taskStatusText.innerHTML = `<div class="status-text done">
     <div class="status-circle circle-done"></div>
     Finalizado
   </div>`;
+    const taskFilter = getTasksLocalStorage().filter(
+      (task) => task.idTask == taskId
+    )[0];
+    console.log(taskFilter);
   } else {
     taskStatusText.innerHTML = `<div class="status-text in-progress">
     <div class="status-circle circle-in-progress"></div>
@@ -88,14 +98,16 @@ const createElement = (
   categoryTask,
   category,
   priorityTask,
-  priority
+  priority,
+  statusTask,
+  status
 ) => {
   taskTable.innerHTML += `
   <tr id="task-${idTask}">
     <td class="status">
-      <div class="status-text no-start">
+      <div class="status-text ${statusTask}">
         <div class="status-circle circle-no-start"></div>
-        Não começou
+        ${status}
       </div>
     </td>
     <td class="task-name">${taskNameValue}</td>
@@ -146,9 +158,9 @@ const initTasks = () => {
       taskTable.innerHTML += `
     <tr id="task-${task.idTask}">
       <td class="status">
-        <div class="status-text no-start">
+        <div class="status-text ${task.statusTask}">
           <div class="status-circle circle-no-start"></div>
-          Não começou
+          ${task.status}
         </div>
       </td>
       <td class="task-name">${task.taskNameValue}</td>
@@ -236,6 +248,8 @@ const createTask = (first) => {
 
     const categoryTaskValue = categoryTask.value;
     const priorityTaskValue = priorityTask.value;
+    const statusTask = "no-start";
+    const status = "Não começou";
 
     const category =
       categoryTask.value === "work"
@@ -261,6 +275,8 @@ const createTask = (first) => {
       priorityTaskValue,
       category,
       priority,
+      statusTask,
+      status,
     });
 
     firstTaskMenu.classList.toggle("hidden");
@@ -288,7 +304,9 @@ const createTask = (first) => {
       categoryTask,
       category,
       priorityTask,
-      priority
+      priority,
+      "no-start",
+      "Não começou"
     );
     inputTaskName.value = "";
     categoryTask.value = "work";
@@ -305,6 +323,8 @@ const createTask = (first) => {
 
     const categoryTaskOtherValue = categoryTaskOther.value;
     const priorityTaskOtherValue = priorityTaskOther.value;
+    const statusTask = "no-start";
+    const status = "Não começou";
 
     const category =
       categoryTaskOther.value === "work"
@@ -330,6 +350,8 @@ const createTask = (first) => {
       priorityTaskOtherValue,
       category,
       priority,
+      statusTask,
+      status,
     });
 
     createTaskMenu.classList.toggle("hidden");
@@ -340,7 +362,9 @@ const createTask = (first) => {
       categoryTaskOther,
       category,
       priorityTaskOther,
-      priority
+      priority,
+      "no-start",
+      "Não começou"
     );
     inputTaskNameOther.value = "";
     categoryTaskOther.value = "work";
