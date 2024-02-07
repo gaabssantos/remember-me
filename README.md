@@ -14,4 +14,4 @@
   <li>JavaScript</li>
 </ul>
 <h2 align="center"> :desktop_computer: Visite o site! </h2>
-<p><strong><a href="">Clique aqui!</a></strong></p>
+<p><strong><a href="https://remember-tasks.netlify.app/">Clique aqui!</a></strong></p>
